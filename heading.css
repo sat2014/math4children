@@ -1,0 +1,12 @@
+.myHeading {
+    background-color: tomato;
+    color: white;
+    padding: 10px;
+} 
+.myHeadingBlue {
+    background-color: rgb(13, 91, 155);
+    color: white;
+    padding: 10px;
+    font-size: x-large;
+    font-family: fantasy
+} 
