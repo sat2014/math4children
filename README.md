@@ -4,6 +4,7 @@ Math practice for children
 Thbis aoolication is intended for primary school children to test and improve their basic math ability in terms of addition, subtraction, multiplication, and division. 
 
 "author": "Sattanathan Subramanian"
+
 "license": "ISC"
  
 Technology used in this applicaiton: 
