@@ -39,7 +39,9 @@ const style = {
     bottom: 'auto',
     left: 'auto',
     transform:'translate3d(0, -50px, 0)',
+    minWidth: 1385,
   };
+
 
 const initialState = (localStorage["redux1-store"]) ?
     JSON.parse(localStorage["redux1-store"]) :
@@ -218,7 +220,10 @@ export class Counter extends Component {
                    
            // } 
            />
-           <Snackbar bodyStyle={{ backgroundColor: 'teal', color: 'coral' }}
+           <Snackbar bodyStyle={{ border: "2px solid #ffffff", backgroundColor: 'teal', color: 'coral',   minWidth: '14.5%',
+  maxWidth: '14.5%', height:'55px', fontWeight: 400,
+  fontSize: 16,
+  }}
           open={this.state.open}
           message="Correct!"
           autoHideDuration={4000}
