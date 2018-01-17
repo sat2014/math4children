@@ -8,9 +8,9 @@
   },
   "author": "Sattanathan Subramanian",
   "license": "ISC",
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/sat2014/math4children.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sat2014/math4children.git"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.2.0",
