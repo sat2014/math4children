@@ -8,6 +8,7 @@ Thbis aoolication is intended for primary school children to test and improve th
 "license": "ISC"
  
 Technology used in this applicaiton: 
+
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
