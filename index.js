@@ -93,6 +93,7 @@ export class Counter extends Component {
         this.setState({
           answer: parseInt(event.target.value)
         })
+      
               this.state.num1+this.state.num2 == parseInt(event.target.value) ? this.setState({sum: this.state.sum+1, open: true, clicks: this.state.clicks+1, num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, answer: this.state.answer=''}) 
                         : console.log("The answer is not correct yet!")
        
