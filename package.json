@@ -1,11 +1,6 @@
 {
   "name": "math4children",
-  "version": "1.0.0",
-  "description": "Math practice for children",
-  "main": "index.js",
-  "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --host 0.0.0.0"
-  },
+  "version": "0.1.0",
   "author": "Sattanathan Subramanian",
   "license": "ISC",
   "repository": {
@@ -13,6 +8,7 @@
     "url": "https://github.com/sat2014/math4children.git"
   },
   "dependencies": {
+    "react-scripts": "1.1.0",
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -20,15 +16,21 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.8",
+    "jslint": "^0.11.0",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
+    "react-cli": "^0.3.1",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-tap-event-plugin": "^3.0.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "style-loader": "^0.19.1",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.0"
+    "style-loader": "^0.19.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
