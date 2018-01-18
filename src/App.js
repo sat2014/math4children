@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -84,18 +84,28 @@ class App extends Component {
   }
 
   handleSkipQuestion = () => {
-    this.setState({
-        clicks: this.state.clicks+1, num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, answer: this.state.answer=''
-    })                    
+    let currentClicks = this.state.clicks
+    this.setState({clicks: currentClicks+1})  
+    this.setState({num1: Math.floor(Math.random() * (10 - 0 + 1) ) + 0})
+    this.setState({num2: Math.floor(Math.random() * (10 - 0 + 1) ) + 0})
+    this.setState({answer: ''})  
+    // this.setState({
+    //     clicks: this.state.clicks+1, num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, answer: this.state.answer=''
+    // })                    
   }
 
   handleRequestClose = () => {
-      console.log("inside handleRequestclose")
-    this.setState({
-      open: false,
-      num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, answer: this.state.answer='',
-      snackbarMessage: ''
-    })
+      console.log("inside handleRequestclose")    
+      this.setState({open: false})
+      this.setState({num1: Math.floor(Math.random() * (10 - 0 + 1) ) + 0})
+      this.setState({num2: Math.floor(Math.random() * (10 - 0 + 1) ) + 0})
+      this.setState({answer: ''})
+      this.setState({snackbarMessage: ''})
+      // this.setState({
+      //   open: false,
+      //   num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, answer: this.state.answer='',
+      //   snackbarMessage: ''
+      // })
   }
   
   alertHandleOpen = () => {
@@ -112,7 +122,11 @@ class App extends Component {
   // }
 
   componentWillMount() {
-    this.setState({clicks: this.state.clicks+1,num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0})    
+    let currentClicks = this.state.clicks
+    this.setState({clicks: currentClicks+1})    
+    this.setState({num1: Math.floor(Math.random() * (10 - 0 + 1) ) + 0})
+    this.setState({num2: Math.floor(Math.random() * (10 - 0 + 1) ) + 0})
+   // this.setState({clicks: this.state.clicks+1,num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0})    
     console.log("componentWillMount"+this.state.sum)
     console.log("componentWillMount"+this.state.num1)
     console.log("componentWillMount"+this.state.num2)
