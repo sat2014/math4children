@@ -144,7 +144,7 @@ class App extends Component {
         <center>
           <div className="App">
           <Paper zDepth={5}> <header className="App-header">           
-              <h1 className="App-title">Math For Children </h1>
+              <h1 className="App-title">Basic Mathematics </h1>
             </header> </Paper>          
             {/* <Paper zDepth={5}> 
               <p className='myHeadingBlue'>Question Number: { this.state.clicks} </p>                      
@@ -192,7 +192,7 @@ class App extends Component {
               </Dialog>
               <RaisedButton label="Skip this question" secondary={true} fullWidth={true} onClick={this.handleSkipQuestion}/> 
             </Paper>
-            <Paper zDepth={5}><p className='myHeadingBlue'>Your Score: { this.state.sum }  </p> 
+            <Paper zDepth={5}><p className='myHeadingBlue'>Score: { this.state.sum } for {this.state.clicks}  </p> 
             </Paper>         
           </div>
         </center>
