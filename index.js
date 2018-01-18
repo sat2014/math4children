@@ -5,15 +5,18 @@ import {myHeading, myHeadingBlue} from './heading.css'
 import MuiThemneProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import Snackbar from 'material-ui/Snackbar';
+import Dialog from 'material-ui/Dialog';
 
 import { Provider } from 'react-redux'
 import storeFactory from './store'
 import sampleData from './initialState'
 import putName from './actions'
+import Chip from 'material-ui/Chip';
 
 const style = {
     num1: 0,
@@ -84,7 +87,10 @@ export class Counter extends Component {
           min: 0,
           max: 0,
           name: 'Unknown',
-          open: false
+          open: false,
+          snackbarMessage: '',
+          alertOpen: false,
+          alertMessage: ''
         }
         this.increment = this.increment.bind(this)
         this.decrement = this.decrement.bind(this)
@@ -92,13 +98,16 @@ export class Counter extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({
-          answer: parseInt(event.target.value)
-        })
-      
-              this.state.num1+this.state.num2 == parseInt(event.target.value) ? this.setState({sum: this.state.sum+1, open: true, clicks: this.state.clicks+1, num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, answer: this.state.answer=''}) 
+      console.log('inside handleChange')
+      !isNaN(event.target.value) ?      
+            this.setState({ answer: parseInt(event.target.value) })
+            : console.log('input is not a number')
+            !isNaN(event.target.value) ?  
+              this.state.num1+this.state.num2 == parseInt(event.target.value) ? this.setState({sum: this.state.sum+1, snackbarMessage: `Wow, ${event.target.value} is correct!`, open: true, clicks: this.state.clicks+1, 
+                }) 
                         : console.log("The answer is not correct yet!")
-       
+       : this.setState({answer: ''})  
+      //  this.setState({ alertMessage: 'Answer must be a number!', alertOpen: true}) 
       }
 
       handleSkipQuestion = () => {
@@ -113,8 +122,24 @@ export class Counter extends Component {
           console.log("inside handleRequestclose")
         this.setState({
           open: false,
+          num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, answer: this.state.answer='',
+          snackbarMessage: ''
         });
       };
+
+      alertHandleOpen = () => {
+        this.setState({alertOpen: true});
+      };
+    
+      alertHandleClose = () => {
+        this.setState({alertOpen: false});
+        this.setState({answer: ''})
+        this.focusAnswerTextField
+      };
+
+      focusAnswerTextField(){
+        this.refs.answerTextField.focus()
+      }
 
     componentWillMount() {
         this.setState({clicks: this.state.clicks+1,num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0})
@@ -128,6 +153,7 @@ export class Counter extends Component {
         console.log("componentDidMount: "+this.state.sum)
         console.log("componentDidMount: "+this.state.num1)
         console.log("componentDidMount: "+this.state.num2)
+        this.focusAnswerTextField()
        }
 
     nextQuestion = (event) => {     
@@ -175,6 +201,14 @@ export class Counter extends Component {
         
 
     render() {
+      const alertActions = [        
+        <FlatButton
+          label="Ok"
+          primary={true}
+          onClick={this.alertHandleClose}
+        />,
+      ];
+
       return (
           <Provider store={store}>
           <MuiThemneProvider>       
@@ -191,11 +225,13 @@ export class Counter extends Component {
                     </Paper>
                      <RaisedButton label="Done" primary={true} onTouchTap={() => {} }/>  */}
           
-          <Paper zDepth={5}> <p className='myHeadingBlue'>Questions Number: { this.state.clicks} </p> 
+          <Paper zDepth={5}> <p className='myHeadingBlue'>Question Number: { this.state.clicks} </p>                      
           </Paper>
          
+          {/* <Chip key={0} onClick={this.handleSkipQuestion} backgroundColor='#f4511e' style ={{margin: 10}}><b>Skip this question</b></Chip> */}
+         
           {/* <Paper zDepth={2} >Score: { this.state.sum } </Paper>    */}
-          <Paper zDepth={2} style={styleSquare}>     
+          <Paper zDepth={2} style={styleSquare}>               
             <Paper style={style} zDepth={2} circle={true} >
             {/* <h1> {this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0}</h1>            */}
             <h1> {this.state.num1!=this.state.num2 ?this.state.num1 : Math.floor(Math.random() * (10 - 0 + 1) ) + 0}</h1>  
@@ -208,9 +244,15 @@ export class Counter extends Component {
             {console.log(this.state.num2)}
             </Paper> 
             <Divider /> 
-            <TextField name="answerTextField" hintText="?" hintStyle={{ width: '200px', textAlign: 'center' }} inputStyle={{ textAlign: 'center' }} style={{ fontSize: '63px', margin: 15}} underlineShow={false}   
+            <TextField autoFocus={true} ref="answerTextField" hintText="?" hintStyle={{ width: '200px', height: '40px', textAlign: 'center' }} inputStyle={{ textAlign: 'center'  }} style={{ fontSize: '63px', margin: 15,    height: '80px', width: '200px',   backgroundColor: '#fff176',}} underlineShow={false}   
                  value={this.state.answer}
-                 onChange={this.handleChange}                 
+                 onChange={ this.handleChange }   
+                //  type="number"
+                //  onError ={() => alert('err')}   
+                 onInput={(e)=>{ 
+                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
+              }}
+              min={0}           
                 // onChange={(e, newValue) =>  { 
                 //      this.state.num1+this.state.num2 == parseInt(newValue) ? this.setState({sum: this.state.sum+1, num1: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0, num2: this.state.num1=Math.floor(Math.random() * (10 - 0 + 1) ) + 0}) 
                 //         : console.log("inside onChange: condiition not true")
@@ -225,15 +267,26 @@ export class Counter extends Component {
   fontSize: 16,
   }}
           open={this.state.open}
-          message="Correct!"
-          autoHideDuration={4000}
+          message={this.state.snackbarMessage}
+          autoHideDuration={2000}
           onRequestClose={this.handleRequestClose}
            style={styleSnackbar} 
         />
-               
+
+        <Dialog
+          actions={alertActions}
+          modal={false}
+          open={this.state.alertOpen}
+          onRequestClose={this.alertHandleClose}
+        >
+        {this.state.alertMessage}
+        </Dialog>
+
+                <RaisedButton label="Skip this question" secondary={true} fullWidth={true} onClick={this.handleSkipQuestion}/> 
         </Paper>
        <p />
-             <RaisedButton label="Skip this question" primary={true} onClick={this.handleSkipQuestion}/>       
+       
+             {/* <RaisedButton label="Skip" primary={true} onClick={this.handleSkipQuestion}/>        */}
               {/* <Button text="add 1" onClick={ this.increment } /> */}
               {/* <p>     <Button text="subtract 1" onClick={ this.decrement } />
           </p>  
@@ -243,7 +296,7 @@ export class Counter extends Component {
           </p> */}
           {/* <p className='myHeadingBlue'>   */}
          
-          <Paper zDepth={5}><p className='myHeadingBlue'>Your Score: { this.state.sum } </p> 
+          <Paper zDepth={5}><p className='myHeadingBlue'>Your Score: { this.state.sum }  </p> 
           </Paper> 
           {/* </p> */}
           {/* <p className='myHeadingBlue'>Name: { this.state.name } </p>
